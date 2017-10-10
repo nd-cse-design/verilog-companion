@@ -1,5 +1,4 @@
 module ps2_keyboard_demo (
-   input             CLOCK_50,
    inout             PS2_CLK,
    inout             PS2_DAT,
    output   [6:0]    HEX0,
@@ -9,7 +8,7 @@ module ps2_keyboard_demo (
    
    wire [21:0] q;
    
-   // 21 20 | 19 18 17 16 15 14 13 12 | 11     10 9 : 8 7 6 5 4 3 2 1 | 0
+   // 21 20 | 19 18 17 16 15 14 13 12 | 11     10 9 | 8 7 6 5 4 3 2 1 | 0
    
    shiftreg22 shiftreg22_0 (PS2_CLK, PS2_DAT, q);
    hexdigit hexdigit_3 (q[19:16], HEX3);
