@@ -5,7 +5,7 @@ module fsm3_tb ();
    wire x;
    wire y;
    
-   fsm3_struct uut (
+   fsm3_case uut (
       .clk     (clk),
       .reset   (reset),
       .a       (a),
@@ -17,13 +17,13 @@ module fsm3_tb ();
    
    initial begin
       clk = 0;  reset = 1;  a = 0;
-      #10 reset = 0;
-      #10;
-      #10 a = 1;
-      #10;
-      #10;
-      #10 a = 0;
-      #10 $stop;
+      #10 reset = 0; // S0
+      #10;           // S1
+      #10 a = 1;     // S0
+      #10;           // S2
+      #10;           // S0
+      #10 a = 0;     // S2
+      #10 $stop;     // S0
    end
 
 endmodule
