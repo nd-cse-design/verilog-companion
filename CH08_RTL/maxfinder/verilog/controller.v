@@ -1,13 +1,13 @@
 module controller (
-   input clk,
-   input reset,
-   output reg en_mar,
-   output reg en_mdr,
-   output reg en_max,
-   output reg sel_mar,
-   output reg sel_max,
-   input mdr_gt_max,
-   input mar_eq_maxaddr
+   input       clk,
+   input       reset,
+   output reg  en_mar,
+   output reg  en_mdr,
+   output reg  en_max,
+   output reg  s_mar,
+   output reg  s_max,
+   input       mdr_gt_max,
+   input       mar_eq_maxaddr
    );
    
    parameter INIT             = 3'd0;
@@ -29,8 +29,8 @@ module controller (
       en_mar = 0;
       en_mdr = 0;
       en_max = 0;
-      sel_mar = 0;
-      sel_max = 0;
+      s_mar = 0;
+      s_max = 0;
       next_state = INIT;
       case (state)
          INIT: begin
@@ -50,12 +50,12 @@ module controller (
          end
          UPDATE_MAX:       begin
             en_max = 1;
-            sel_max = 1;
+            s_max = 1;
             next_state = CHECK_LAST_ADDR;
          end
          CHECK_LAST_ADDR:  begin
             en_mar = 1;
-            sel_mar = 1;
+            s_mar = 1;
             if (mar_eq_maxaddr)
                next_state = END;
             else
