@@ -1,17 +1,6 @@
 module obstacle_DE2 (
 	input				CLOCK_50,				//	50 MHz
-	input	 [17:0]	SW,
-	input	 [3:0]	KEY,
-	output [17:0]	LEDR,
-	output [7:0]	LEDG,
-	output [6:0]	HEX0,
-	output [6:0]	HEX1,
-	output [6:0]	HEX2,
-	output [6:0]	HEX3,
-	output [6:0]	HEX4,
-	output [6:0]	HEX5,
-	output [6:0]	HEX6,
-	output [6:0]	HEX7,
+	input	 [0:0]	KEY,
 	output			VGA_CLK,   				//	VGA Clock
 	output			VGA_HS,					//	VGA H_SYNC
 	output			VGA_VS,					//	VGA V_SYNC
@@ -27,23 +16,9 @@ module obstacle_DE2 (
 	wire [6:0] 	y;
 	wire		  	plot;
 	
-	assign LEDR[17] 		= SW[17];
-	assign LEDR[16:3]		= 0;
-	assign LEDR[2:0]		= SW[2:0];
-	assign LEDG[7:0]		= 0;
-	assign HEX0 = 7'h7f, HEX1 = 7'h7f, HEX2 = 7'h7f, HEX3 = 7'h7f;
-	assign HEX4 = 7'h7f, HEX5 = 7'h7f, HEX6 = 7'h7f, HEX7 = 7'h7f;
-	
-//	always @(posedge CLOCK_50) begin
-//		x_delay <= x;
-//		y_delay <= y;
-//		plot_delay <= plot;
-//		color_sel_delay <= color_sel;
-//	end
-	
 	processor (
 		.clk		(CLOCK_50),
-		.reset	(SW[17]),
+		.reset	(~KEY[0]),
 		.xpos		(x),
 		.ypos		(y),
 		.color	(color),
@@ -51,7 +26,7 @@ module obstacle_DE2 (
 	);
 	
 	vga_adapter VGA(
-		.resetn(~SW[17]),
+		.resetn(KEY[0]),
 		.clock(CLOCK_50),
 		.colour(color),
 		.x(x),

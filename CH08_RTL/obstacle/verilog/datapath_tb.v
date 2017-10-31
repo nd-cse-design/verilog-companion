@@ -1,7 +1,6 @@
 `timescale 1ns/1ns
 module datapath_tb();
 	reg				 clk;
-	reg				 reset;
    reg             en_xpos;
    reg    [1:0]    s_xpos;
    reg             en_ypos;
@@ -24,7 +23,6 @@ module datapath_tb();
 
    datapath uut (
       .clk        (clk       ),
-      .reset      (reset     ),
       .en_xpos    (en_xpos   ),
       .s_xpos     (s_xpos    ),
       .en_ypos    (en_ypos   ),
@@ -50,7 +48,6 @@ module datapath_tb();
    
    initial begin
       clk       = 0;
-      reset     = 0;
       en_xpos   = 1;
       s_xpos    = 0;
       en_ypos   = 1;
