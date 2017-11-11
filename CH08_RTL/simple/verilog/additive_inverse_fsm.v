@@ -22,14 +22,6 @@ module additive_inverse_fsm (
          state <= S0;
       else
          state <= next_state;
-   
-//      0   y_sel = 1;  op_sel = 0;  en_x = 0;  en_y = 1;  // y <= 5
-//      1   y_sel = 0;  op_sel = 3;  en_x = 1;  en_y = 0;  // x <= y
-//      2   y_sel = 0;  op_sel = 1;  en_x = 1;  en_y = 0;  // x <= ~x
-//      3   y_sel = 1;  op_sel = 0;  en_x = 0;  en_y = 1;  // y <= 1
-//      4   y_sel = 0;  op_sel = 2;  en_x = 1;  en_y = 0;  // x <= x + y
-//      5   y_sel = 1;  op_sel = 0;  en_x = 0;  en_y = 1;  // y <= 5
-//      6   y_sel = 0;  op_sel = 2;  en_x = 1;  en_y = 0;  // x <= x + y
       
    always @(*) begin
       op_sel   = 0;
