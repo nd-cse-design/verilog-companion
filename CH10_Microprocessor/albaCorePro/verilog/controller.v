@@ -5,12 +5,12 @@ module controller (
    output reg        en_inst,
    output reg        en_a,
    output reg        en_b,
-   output reg [2:0]  alu_op,
+   output reg [3:0]  alu_op,
    output reg        en_f,
    output reg        en_mdr,
    output reg        s_regfile_din,
    output reg        we_regfile,
-   output reg        s_next_pc,
+   output reg        s_regfile_rw,
    output reg        en_pc,
    input      [3:0]  opcode,
    input             zero,
@@ -18,28 +18,33 @@ module controller (
    output reg        we_mem
    );
    
-   parameter IFETCH  = 5'd1;
-   parameter IFETCH2 = 5'd2;
-   parameter DECODE  = 5'd3;
-   parameter EX_ADD  = 5'd4;
-   parameter EX_SUB  = 5'd5;
-   parameter EX_AND  = 5'd6;
-   parameter EX_OR   = 5'd7;
-   parameter EX_NOT  = 5'd8;
-   parameter EX_SHL  = 5'd9;
-   parameter EX_SHR  = 5'd10;
-   parameter EX_LDI  = 5'd11;
-   parameter EX_LD   = 5'd12;
-   parameter EX_LD2  = 5'd13;
-   parameter EX_ST   = 5'd14;
-   parameter EX_BR   = 5'd15;
-   parameter EX_BZ   = 5'd16;
-   parameter EX_BN   = 5'd17;
+   parameter IFETCH  = 5'd0;
+   parameter IFETCH2 = 5'd1;
+   parameter DECODE  = 5'd2;
+   parameter EX_ADD  = 5'd3;
+   parameter EX_SUB  = 5'd4;
+   parameter EX_AND  = 5'd5;
+   parameter EX_OR   = 5'd6;
+   parameter EX_NOT  = 5'd7;
+   parameter EX_SHL  = 5'd8;
+   parameter EX_SHR  = 5'd9;
+   parameter EX_LDI  = 5'd10;
+   parameter EX_LD   = 5'd11;
+   parameter EX_ST   = 5'd12;
+   parameter EX_BR   = 5'd13;
+   parameter EX_BZ   = 5'd14;
+   parameter EX_BN   = 5'd15;
+   parameter EX_JAL  = 5'd16;
+   parameter EX_JR   = 5'd17;
    parameter EX_QUIT = 5'd18;
-   parameter WB_ALU  = 5'd19;
-   parameter WB_MEM  = 5'd20;
-   parameter BR_TAKE = 5'd21;
-   parameter BR_NOT  = 5'd22;
+   parameter MEM_LD  = 5'd19;
+   parameter MEM_LD2 = 5'd20;
+   parameter MEM_ST  = 5'd21;
+   parameter WB_ALU  = 5'd22;
+   parameter WB_LD   = 5'd23;
+   parameter WB_JAL  = 5'd24;
+   parameter BR_TAKE = 5'd25;
+   parameter BR_NOT  = 5'd26;
    
    reg [4:0] state, next_state;
    
@@ -60,7 +65,7 @@ module controller (
       we_mem         = 0;   
       s_regfile_din  = 0;   
       we_regfile     = 0;
-      s_next_pc      = 0;
+      s_regfile_rw   = 0;
       en_pc          = 0;
       next_state     = EX_QUIT;
       case (state)
@@ -88,6 +93,8 @@ module controller (
                10: next_state = EX_BR;   
                11: next_state = EX_BZ;  
                12: next_state = EX_BN;  
+               13: next_state = EX_JAL;
+               14: next_state = EX_JR;
                default: next_state = EX_QUIT;
             endcase
          end
@@ -124,20 +131,15 @@ module controller (
             next_state = WB_ALU;
          end
          EX_LD   : begin
-            s_addr = 1;
-            next_state = EX_LD2;
-         end
-         EX_LD2  : begin  
-            en_mdr = 1;
-            next_state = WB_MEM;
+            alu_op = 8;  en_f = 1;
+            next_state = MEM_LD;
          end
          EX_ST   : begin
-            we_mem = 1;  s_addr = 1;
-            s_next_pc = 0;  en_pc = 1;
-            next_state = IFETCH;
+            alu_op = 9;  en_f = 1;
+            next_state = MEM_ST;
          end
          EX_BR   : begin
-            s_next_pc = 1;  en_pc = 1;
+            alu_op = 11;  en_pc = 1;
             next_state = IFETCH;
          end
          EX_BZ   : begin
@@ -148,25 +150,51 @@ module controller (
             if (neg) next_state = BR_TAKE;
             else next_state = BR_NOT;
          end
+         EX_JAL  : begin
+            alu_op = 10;  en_f = 1;
+            next_state = WB_JAL;
+         end
+         EX_JR   : begin
+            alu_op = 13;  en_pc = 1;
+            next_state = IFETCH;
+         end
          EX_QUIT : begin 
             next_state = EX_QUIT;
          end
-         WB_ALU  : begin   
-            s_regfile_din = 0;  we_regfile = 1;
-            s_next_pc = 0;  en_pc = 1;
+         MEM_LD  : begin
+            s_addr = 1;
+            next_state = MEM_LD2;
+         end
+         MEM_LD2 : begin
+            en_mdr = 1;
+            next_state = WB_LD;
+         end
+         MEM_ST  : begin
+            we_mem = 1;  s_addr = 1;
+            alu_op = 10;  en_pc = 1;
             next_state = IFETCH;
          end
-         WB_MEM  : begin
-            s_regfile_din = 1;  we_regfile = 1;
-            s_next_pc = 0;  en_pc = 1;
+         WB_ALU  : begin   
+            s_regfile_rw = 0;  s_regfile_din = 0;  we_regfile = 1;
+            alu_op = 10;  en_pc = 1;
+            next_state = IFETCH;
+         end
+         WB_LD  : begin
+            s_regfile_rw = 0;  s_regfile_din = 1;  we_regfile = 1;
+            alu_op = 10;  en_pc = 1;
+            next_state = IFETCH;
+         end
+         WB_JAL  : begin
+            s_regfile_rw = 1;  s_regfile_din = 0;  we_regfile = 1;
+            alu_op = 12;  en_pc = 1;
             next_state = IFETCH;
          end
          BR_TAKE : begin 
-            s_next_pc = 1;  en_pc = 1;
+            alu_op = 11;  en_pc = 1;
             next_state = IFETCH;
          end
          BR_NOT  : begin 
-            s_next_pc = 0;  en_pc = 1;
+            alu_op = 10;  en_pc = 1;
             next_state = IFETCH;
          end
          default : begin
