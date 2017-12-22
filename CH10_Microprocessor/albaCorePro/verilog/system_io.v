@@ -1,13 +1,14 @@
 module system_io (
    input          clk,
    input          reset,
-   output  [15:0] proc_din,
-   output  [15:0] addr,
-   output  [15:0] proc_dout,
-   output         we,
    input  [3:0]   io_in,
    output [3:0]   io_out
    );
+   
+   wire   [15:0] proc_din;
+   wire   [15:0] addr;
+   wire   [15:0] proc_dout;
+   wire          we;
       
    processor processor (
       .clk     (clk      ),
