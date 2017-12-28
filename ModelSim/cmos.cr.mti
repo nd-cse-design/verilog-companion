@@ -1,0 +1,15 @@
+{C:/Users/Jay Brockman/Git/verilog-companion/ModelSim/cmos_inverter.v} {1 {vlog -work work -stats=none {C:\Users\Jay Brockman\Git\verilog-companion\ModelSim\cmos_inverter.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module cmos_inverter
+
+Top level modules:
+	cmos_inverter
+
+} {} {}} {C:/Users/Jay Brockman/Git/verilog-companion/ModelSim/cmos_inverter_tb.v} {1 {vlog -work work -stats=none {C:/Users/Jay Brockman/Git/verilog-companion/ModelSim/cmos_inverter_tb.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module cmos_inverter_tb
+
+Top level modules:
+	cmos_inverter_tb
+
+} {} {}}

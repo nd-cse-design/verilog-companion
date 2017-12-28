@@ -19,14 +19,14 @@
 #
 # Quartus Prime
 # Version 16.1.0 Build 196 10/24/2016 SJ Lite Edition
-# Date created = 15:40:59  December 22, 2017
+# Date created = 16:40:11  December 25, 2017
 #
 # -------------------------------------------------------------------------- #
 #
 # Notes:
 #
 # 1) The default values for assignments are stored in the file:
-#		getting-started_assignment_defaults.qdf
+#		cmos_assignment_defaults.qdf
 #    If this file doesn't exist, see file:
 #		assignment_defaults.qdf
 #
@@ -39,9 +39,9 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE115F29C7
-set_global_assignment -name TOP_LEVEL_ENTITY bad_implicit_wire
+set_global_assignment -name TOP_LEVEL_ENTITY cmos_inverter
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
-set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:40:59  DECEMBER 22, 2017"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:40:11  DECEMBER 25, 2017"
 set_global_assignment -name LAST_QUARTUS_VERSION "16.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
@@ -576,25 +576,8 @@ set_location_assignment PIN_V22 -to HSMC_TX_D_N[16]
 set_location_assignment PIN_T22 -to HSMC_RX_D_N[16]
 set_location_assignment PIN_V24 -to HSMC_CLKOUT_N2
 set_location_assignment PIN_G24 -to HSMC_CLKOUT_N1
-set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
-set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name VERILOG_FILE verilog/bad_2_drivers.v
-set_global_assignment -name VERILOG_FILE verilog/nand_simple_tb.v
-set_global_assignment -name VERILOG_FILE verilog/nand_simple.v
-set_global_assignment -name VERILOG_FILE verilog/nand_wired_shortcut.v
-set_global_assignment -name VERILOG_FILE verilog/nand_wired.v
-set_global_assignment -name VERILOG_FILE verilog/my_and.v
-set_global_assignment -name VERILOG_FILE verilog/my_or.v
-set_global_assignment -name VERILOG_FILE verilog/my_inv.v
-set_global_assignment -name VERILOG_FILE verilog/nand_structural.v
-set_global_assignment -name VERILOG_FILE verilog/nand_tb.v
-set_global_assignment -name VERILOG_FILE verilog/my_and_tb.v
-set_global_assignment -name VERILOG_FILE verilog/fanout.v
-set_global_assignment -name VERILOG_FILE verilog/bad_no_assign.v
-set_global_assignment -name VERILOG_FILE verilog/bad_implicit_wire.v
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE verilog/cmos_inverter.v
+set_global_assignment -name VERILOG_FILE verilog/cmos_inverter_tb.v
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AUD_ADCDAT
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AUD_ADCLRCK
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AUD_BCLK
@@ -1120,4 +1103,7 @@ set_instance_assignment -name IO_STANDARD LVDS -to HSMC_TX_D_N[16]
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_RX_D_N[16]
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N2
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N1
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
