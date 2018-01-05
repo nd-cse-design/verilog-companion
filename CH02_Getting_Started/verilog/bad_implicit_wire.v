@@ -6,8 +6,8 @@ module bad_implicit_wire (
 	
 	wire n0;
 	
-	assign y  = ~n0_misspelled;	// meant n0 but misspelled it!!!
-	assign n0 = a & b;
+	assign y  = ~n0;	
+	assign n0_misspelled = a & b;	// meant n0 but misspelled it!!!
 	
 endmodule
 

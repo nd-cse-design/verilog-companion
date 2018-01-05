@@ -1,10 +1,9 @@
-`timescale 1ns/1ns
-module nand_simple_tb ();
+module xnor_structural_tb ();
 	reg	a;
 	reg	b;
 	wire	y;
 	
-	nand_simple uut (
+	xnor_structural uut (
 		.a	(a),
 		.b	(b),
 		.y	(y)

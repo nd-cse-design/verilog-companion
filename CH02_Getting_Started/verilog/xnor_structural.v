@@ -1,4 +1,4 @@
-module nand_structural (
+module xnor_structural (
 	input		a,
 	input		b,
 	output	y
@@ -6,7 +6,7 @@ module nand_structural (
 	
 	wire n0;
 	
-	my_and my_and0 (
+	xor_structural xor0 (
 		.a	(a),
 		.b (b),
 		.y (n0)
