@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE115F29C7
-set_global_assignment -name TOP_LEVEL_ENTITY or5_DE2
+set_global_assignment -name TOP_LEVEL_ENTITY adder4
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:40:59  DECEMBER 22, 2017"
 set_global_assignment -name LAST_QUARTUS_VERSION "16.1.0 Lite Edition"
@@ -601,7 +601,7 @@ set_global_assignment -name VERILOG_FILE verilog/signal_generator.v
 set_global_assignment -name VERILOG_FILE verilog/three_inverters.v
 set_global_assignment -name VERILOG_FILE verilog/three_inverters_tb.v
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH or5_DE2_tb -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH ripple8_tb -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME three_inverters_tb -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id three_inverters_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME three_inverters_tb -section_id three_inverters_tb
@@ -617,14 +617,41 @@ set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id my_or5_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME my_or5_tb -section_id my_or5_tb
 set_global_assignment -name VERILOG_FILE verilog/or5_DE2.v
 set_global_assignment -name VERILOG_FILE verilog/or5_DE2_tb.v
-set_global_assignment -name EDA_TEST_BENCH_FILE verilog/three_inverters_tb.v -section_id three_inverters_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE verilog/unoptimized_sop_tb.v -section_id unoptimized_sop_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE verilog/my_or5_tb.v -section_id my_or5_tb
 set_global_assignment -name EDA_TEST_BENCH_NAME or5_DE2_tb -section_id eda_simulation
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id or5_DE2_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME or5_DE2_tb -section_id or5_DE2_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE verilog/or5_DE2_tb.v -section_id or5_DE2_tb
 set_global_assignment -name VERILOG_FILE verilog/and2_DE2.v
+set_global_assignment -name VERILOG_FILE verilog/zero_check.v
+set_global_assignment -name VERILOG_FILE verilog/numbers_tb.v
+set_global_assignment -name VERILOG_FILE verilog/adder4.v
+set_global_assignment -name VERILOG_FILE verilog/zero_check_equal.v
+set_global_assignment -name VERILOG_FILE verilog/full_adder.v
+set_global_assignment -name VERILOG_FILE verilog/ripple3.v
+set_global_assignment -name VERILOG_FILE verilog/ripple3_tb.v
+set_global_assignment -name VERILOG_FILE verilog/zero_check_equal_tb.v
+set_global_assignment -name VERILOG_FILE verilog/concat.v
+set_global_assignment -name VERILOG_FILE verilog/concat_tb.v
+set_global_assignment -name VERILOG_FILE verilog/shift_left.v
+set_global_assignment -name VERILOG_FILE verilog/shift_left_tb.v
+set_global_assignment -name VERILOG_FILE verilog/adder4_tb.v
+set_global_assignment -name EDA_TEST_BENCH_NAME adder4_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id adder4_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME adder4_tb -section_id adder4_tb
+set_global_assignment -name EDA_TEST_BENCH_NAME ripple3_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ripple3_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ripple3_tb -section_id ripple3_tb
+set_global_assignment -name VERILOG_FILE verilog/ripple8.v
+set_global_assignment -name VERILOG_FILE verilog/ripple8_tb.v
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/three_inverters_tb.v -section_id three_inverters_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/unoptimized_sop_tb.v -section_id unoptimized_sop_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/my_or5_tb.v -section_id my_or5_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/or5_DE2_tb.v -section_id or5_DE2_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/adder4_tb.v -section_id adder4_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/ripple3_tb.v -section_id ripple3_tb
+set_global_assignment -name EDA_TEST_BENCH_NAME ripple8_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id ripple8_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME ripple8_tb -section_id ripple8_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/ripple8_tb.v -section_id ripple8_tb
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -1154,10 +1181,3 @@ set_instance_assignment -name IO_STANDARD LVDS -to HSMC_RX_D_N[16]
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N2
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N1
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name VERILOG_FILE verilog/zero_check.v
-set_global_assignment -name VERILOG_FILE verilog/numbers_tb.v
-set_global_assignment -name VERILOG_FILE verilog/adder4.v
-set_global_assignment -name VERILOG_FILE verilog/zero_check_equal.v
-set_global_assignment -name VERILOG_FILE verilog/full_adder.v
-set_global_assignment -name VERILOG_FILE verilog/ripple3.v
-set_global_assignment -name VERILOG_FILE verilog/ripple3_tb.v

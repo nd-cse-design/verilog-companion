@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE115F29C7
-set_global_assignment -name TOP_LEVEL_ENTITY adder16
+set_global_assignment -name TOP_LEVEL_ENTITY router
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "07:42:39  JANUARY 02, 2018"
 set_global_assignment -name LAST_QUARTUS_VERSION "16.1.0 Lite Edition"
@@ -576,8 +576,37 @@ set_location_assignment PIN_V22 -to HSMC_TX_D_N[16]
 set_location_assignment PIN_T22 -to HSMC_RX_D_N[16]
 set_location_assignment PIN_V24 -to HSMC_CLKOUT_N2
 set_location_assignment PIN_G24 -to HSMC_CLKOUT_N1
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS NOT_USED -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH adder16_tb -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_NAME adder16_tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id adder16_tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME adder16_tb -section_id adder16_tb
+set_global_assignment -name EDA_TEST_BENCH_FILE verilog/adder16_tb.v -section_id adder16_tb
+set_global_assignment -name VERILOG_FILE verilog/router_tb.v
+set_global_assignment -name VERILOG_FILE verilog/hexdigit.v
+set_global_assignment -name VERILOG_FILE verilog/demux4.v
 set_global_assignment -name VERILOG_FILE verilog/adder16.v
 set_global_assignment -name VERILOG_FILE verilog/adder16_tb.v
+set_global_assignment -name VERILOG_FILE verilog/mux2_assign.v
+set_global_assignment -name VERILOG_FILE verilog/mux4_assign.v
+set_global_assignment -name VERILOG_FILE verilog/mux_2x1.v
+set_global_assignment -name VERILOG_FILE verilog/unsigned_comparator.v
+set_global_assignment -name VERILOG_FILE verilog/unsigned_comparator_tb.v
+set_global_assignment -name VERILOG_FILE verilog/mux_4x4_case.v
+set_global_assignment -name VERILOG_FILE verilog/decoder_2x4_case.v
+set_global_assignment -name VERILOG_FILE verilog/majority_case.v
+set_global_assignment -name VERILOG_FILE verilog/mux4.v
+set_global_assignment -name VERILOG_FILE verilog/demux4_tb.v
+set_global_assignment -name VERILOG_FILE verilog/demux4_verbose.v
+set_global_assignment -name VERILOG_FILE verilog/bad_demux4.v
+set_global_assignment -name VERILOG_FILE verilog/bad_demux4_tb.v
+set_global_assignment -name VERILOG_FILE verilog/router.v
+set_global_assignment -name VERILOG_FILE verilog/router_DE2.v
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AUD_ADCDAT
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AUD_ADCLRCK
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to AUD_BCLK
@@ -1103,17 +1132,4 @@ set_instance_assignment -name IO_STANDARD LVDS -to HSMC_TX_D_N[16]
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_RX_D_N[16]
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N2
 set_instance_assignment -name IO_STANDARD LVDS -to HSMC_CLKOUT_N1
-set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
-set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH adder16_tb -section_id eda_simulation
-set_global_assignment -name EDA_TEST_BENCH_NAME adder16_tb -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id adder16_tb
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME adder16_tb -section_id adder16_tb
-set_global_assignment -name EDA_TEST_BENCH_FILE verilog/adder16_tb.v -section_id adder16_tb
-set_global_assignment -name VERILOG_FILE verilog/mux2_assign.v
-set_global_assignment -name VERILOG_FILE verilog/mux4_assign.v
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
