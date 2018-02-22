@@ -19,7 +19,7 @@ module hexdigit (
       4'hb: out = 7'b0000011;
       4'hc: out = 7'b1000110;
       4'hd: out = 7'b0100001;
-      4'he: out = 7'b0001100;
+      4'he: out = 7'b0000110;
       4'hf: out = 7'b0001110;
       endcase
    end

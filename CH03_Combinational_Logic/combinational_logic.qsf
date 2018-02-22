@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE115F29C7
-set_global_assignment -name TOP_LEVEL_ENTITY router
+set_global_assignment -name TOP_LEVEL_ENTITY mux_2x1
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "07:42:39  JANUARY 02, 2018"
 set_global_assignment -name LAST_QUARTUS_VERSION "16.1.0 Lite Edition"
@@ -604,6 +604,10 @@ set_global_assignment -name VERILOG_FILE verilog/bad_demux4.v
 set_global_assignment -name VERILOG_FILE verilog/bad_demux4_tb.v
 set_global_assignment -name VERILOG_FILE verilog/router.v
 set_global_assignment -name VERILOG_FILE verilog/router_DE2.v
+set_global_assignment -name VERILOG_FILE verilog/and_inv.v
+set_global_assignment -name VERILOG_FILE verilog/and_inv_tb.v
+set_global_assignment -name VERILOG_FILE verilog/and_inv_delay_tb.v
+set_global_assignment -name VERILOG_FILE verilog/decoder4.v
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top

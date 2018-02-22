@@ -18,7 +18,7 @@ module router_DE2 (
       .out0       (LEDG[0]),
       .out1       (LEDG[1]),
       .out2       (LEDG[2]),
-      .out3       (LEDG[3]),
+      .out3       (LEDG[3])
    );
    
    hexdigit h1 (
