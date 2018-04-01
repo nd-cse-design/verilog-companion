@@ -9,10 +9,10 @@ module image_ram (
 	wren);
 
 	// parameters
-	parameter RESOLUTION = "160x120";
-	parameter BITS_PER_COLOUR_CHANNEL = 1;
-	parameter MONOCHROME = "FALSE";
-	parameter BACKGROUND_IMAGE = "test.mif";
+	parameter RESOLUTION 					= "160x120";
+	parameter BITS_PER_COLOUR_CHANNEL 	= 1;
+	parameter MONOCHROME 					= "FALSE";
+	parameter BACKGROUND_IMAGE 			= "test.mif";
 	
 	// declare inputs and outputs
 	input 			clk;
@@ -35,10 +35,18 @@ module image_ram (
 		.mem_address(raddr) 
 	);
 	defparam read_translator.RESOLUTION = RESOLUTION;
-		
+	
+	vga_address_translator write_translator (
+		.x(x_write), 
+		.y(y_write), 
+		.mem_address(waddr) 
+	);
+	defparam write_translator.RESOLUTION = RESOLUTION;
+
+	
 	lpm_ram_dq ImageMemory (
 		.data			(color_in),
-		.address		(raddr),
+		.address		(wren ? waddr : raddr),
 		.inclock		(clk),
 //		.outclock	(clk),
 		.we			(wren),
@@ -49,6 +57,5 @@ module image_ram (
 	defparam ImageMemory.lpm_numwords	= 19200;
 	defparam ImageMemory.lpm_outdata		= "UNREGISTERED";
 	defparam ImageMemory.lpm_file			= BACKGROUND_IMAGE;
-
 	
 endmodule
