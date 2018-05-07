@@ -46,5 +46,6 @@ module obstacle_DE2 (
 	defparam VGA.MONOCHROME = "FALSE";
 	defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
 	defparam VGA.BACKGROUND_IMAGE = "obstacle_course.mif";
+//	defparam VGA.BACKGROUND_IMAGE = "tiny.mif";
 
 endmodule

@@ -25,6 +25,7 @@ module datapath (
  *                           Parameter Declarations                        *
  ***************************************************************************/
    parameter TIMER_LIMIT = 26'd1_000_000;
+//   parameter TIMER_LIMIT = 26'd2;
    parameter UP                = 2'd0;
    parameter DOWN              = 2'd1;
    parameter LEFT              = 2'd2;
@@ -120,5 +121,6 @@ module datapath (
 		.wren					(1'b0)
 	);
 	defparam obstacle_mem.BACKGROUND_IMAGE = "obstacle_course.mif";
+//	defparam obstacle_mem.BACKGROUND_IMAGE = "tiny.mif";
    
 endmodule
