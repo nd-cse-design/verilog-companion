@@ -8,7 +8,7 @@ module timer5 (
    assign t = (q == 5);
    
    always @(posedge clk) begin
-      if (rst)
+      if (rst | t)
          q <= 0;
       else
          q <= q + 1;
