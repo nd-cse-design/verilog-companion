@@ -3,15 +3,15 @@ module timer5 (
    input rst,
    output t);
    
-   reg [2:0] q;
+   reg [2:0] count;
    
-   assign t = (q == 5);
+   assign t = (count == 3'd5);
    
    always @(posedge clk) begin
       if (rst | t)
-         q <= 0;
+         count <= 0;
       else
-         q <= q + 1;
+         count <= count + 1;
    end
    
 endmodule
