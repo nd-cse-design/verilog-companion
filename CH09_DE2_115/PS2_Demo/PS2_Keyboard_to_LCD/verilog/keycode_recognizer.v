@@ -32,7 +32,8 @@ module keycode_recognizer (
 	parameter S_E0XX		= 3'd6;
 	parameter S_E0F0XX	= 3'd7;
 	
-	reg [2:0] state, next_state;
+	reg [2:0] state = S_START; 
+   reg [2:0] next_state;
 	
 	always @(posedge clk)
 		if (!reset_n)
@@ -117,7 +118,5 @@ module keycode_recognizer (
 			default:  next_state = S_START;
 		endcase
 	end
-	
-	
 	
 endmodule

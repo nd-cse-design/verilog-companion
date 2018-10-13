@@ -11,7 +11,7 @@ module mixed_message_de2 (
    );
    
    wire [4:0] lcd_index;
-   wire [7:0] lcd_ascii;
+   wire [7:0] lcd_char;
    
    assign LEDR[17:8] = 0;
    assign LEDR[7:0]  = SW[7:0];
@@ -19,11 +19,11 @@ module mixed_message_de2 (
    mixed_message mixed_message_0 (
       .addr    (lcd_index),
       .din     (SW[7:0]),
-      .dout    (lcd_ascii)
+      .dout    (lcd_char)
    );
    
    LCD_Controller LCD_Controller_0 (
-      .lcd_ascii  (lcd_ascii),
+      .lcd_char  (lcd_char),
       .lcd_index  (lcd_index),
       .CLOCK_50   (CLOCK_50 ),
       .LCD_ON     (LCD_ON   ),	

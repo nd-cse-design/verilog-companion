@@ -6,12 +6,12 @@ module character_and_location_de2 (
 	output 	[17:0] 	LEDR,
 
 	//LCD Module 16X2
-	output 				LCD_ON,		// LCD Power ON/OFF
-	output 				LCD_BLON,	// LCD Back Light ON/OFF
-	output 				LCD_RW,		// LCD Read/Write Select, 0 = Write, 1 = Read
-	output 				LCD_EN,		// LCD Enable
-	output 				LCD_RS,		// LCD Command/Data Select, 0 = Command, 1 = Data
-	inout [7:0] 		LCD_DATA		// LCD Data bus 8 bits
+	output            LCD_ON,	
+	output            LCD_BLON,
+	output            LCD_RW,	
+	output            LCD_EN,	
+	output            LCD_RS,	
+	inout [7:0]       LCD_DATA	
 	);
    
    // Send used switches to red leds 
@@ -19,18 +19,18 @@ module character_and_location_de2 (
 	
 	wire [4:0]	lcd_index;
 	wire [4:0]	location = SW[12:8];
-	wire [7:0]	lcd_ascii;
+	wire [7:0]	lcd_char;
 	wire [7:0]	character = SW[7:0];
    
    character_and_location c_and_l (
 		.lcd_index  (lcd_index),
 		.character  (character),
 		.location   (location),
-		.dout       (lcd_ascii)
+		.dout       (lcd_char)
 	);
    
 	LCD_Controller LCD_Controller_0 (
-      .lcd_ascii  (lcd_ascii),
+      .lcd_char   (lcd_char),
       .lcd_index  (lcd_index),
       .CLOCK_50   (CLOCK_50 ),
       .LCD_ON     (LCD_ON   ),	

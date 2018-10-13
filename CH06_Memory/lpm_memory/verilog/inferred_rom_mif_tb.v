@@ -1,10 +1,11 @@
 `timescale 1ns/1ns
-module lpm_rom_demo_tb ();
+module inferred_rom_mif_tb ();
 	reg 		[7:0] 	addr;
 	reg 					clock;
 	wire		[15:0]	q;
 	
-	lpm_rom_demo uut (
+   // memory doesn't get properly initialized for simulation!!!
+	inferred_rom_mif uut (
 	.addr			(addr),
 	.clock		(clock),
 	.q				(q)

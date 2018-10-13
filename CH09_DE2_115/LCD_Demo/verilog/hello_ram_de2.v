@@ -20,7 +20,7 @@ module hello_ram_de2 (
 	
 	wire [4:0]	lcd_index;
 	wire [4:0]	waddr = SW[12:8];
-	wire [7:0]	lcd_ascii;
+	wire [7:0]	lcd_char;
 	wire [7:0]	din = SW[7:0];
 	wire			we = ~KEY[0];
    
@@ -30,11 +30,11 @@ module hello_ram_de2 (
 		.din		(din),
 		.waddr	(waddr),
 		.we		(we),
-		.dout		(lcd_ascii)
+		.dout		(lcd_char)
 	);
    
 	LCD_Controller LCD_Controller_0 (
-      .lcd_ascii  (lcd_ascii),
+      .lcd_char   (lcd_char),
       .lcd_index  (lcd_index),
       .CLOCK_50   (CLOCK_50 ),
       .LCD_ON     (LCD_ON   ),	

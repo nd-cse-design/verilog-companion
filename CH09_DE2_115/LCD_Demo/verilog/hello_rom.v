@@ -17,6 +17,9 @@ module hello_rom (
          18: dout = "r";
          19: dout = "l";
          20: dout = "d";
+         21: dout = "-";
+         22: dout = "3";   // ASCII value for number
+         23: dout = 8'd10; // will display hex digit A
          // Blank spaces for all unspecified locations
          default: dout = " ";
       endcase

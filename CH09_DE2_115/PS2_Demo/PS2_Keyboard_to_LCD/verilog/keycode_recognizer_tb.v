@@ -12,7 +12,7 @@ module keycode_recognizer_tb ();
 	
 	keycode_recognizer uut (
 		.clk					(clk),
-		.reset_n				(reset_n),
+      .reset_n          (reset_n),
 		.ps2_key_en			(scan_ready),
 		.ps2_key_data		(scan_code),
 		.keycode				(keycode),
