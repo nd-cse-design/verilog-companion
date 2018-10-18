@@ -3,7 +3,7 @@ module square_wave_osc (
    input reset,
    output [31:0] out);
    
-   parameter HALF_WAVELENGTH	= 20'd56_818;     // for 440 Hz (50,000/440)/2
+   parameter HALF_WAVELENGTH	= 20'd56_818;     // for 440 Hz (50,000,000/440)/2
    parameter AMPLITUDE 	      = 32'd10_000_000;
    reg [15:0] count = 0;
    reg phase = 0;
