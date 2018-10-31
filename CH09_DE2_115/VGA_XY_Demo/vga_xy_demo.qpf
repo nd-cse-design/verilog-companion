@@ -18,13 +18,13 @@
 #
 # Quartus Prime
 # Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-# Date created = 19:57:10  October 29, 2018
+# Date created = 18:03:34  October 29, 2018
 #
 # -------------------------------------------------------------------------- #
 
 QUARTUS_VERSION = "18.0"
-DATE = "19:57:10  October 29, 2018"
+DATE = "18:03:34  October 29, 2018"
 
 # Revisions
 
-PROJECT_REVISION = "obstacle"
+PROJECT_REVISION = "vga_xy_demo"

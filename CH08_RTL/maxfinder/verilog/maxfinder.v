@@ -16,6 +16,7 @@ module maxfinder (
    );
    
    rom rom (
+      .clk     (clk),
       .addr    (addr),
       .dout    (memdata)
    );

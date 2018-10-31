@@ -10,15 +10,18 @@ module datapath (
    input             s_ydir,
    input             en_timer,
    input             s_timer,
-   input             s_color,
-   input    [1:0]    s_obs_xy,
+   input             s_image_color,
+   input      [1:0]  s_x,
+   input      [1:0]  s_y,
    output reg        xdir,
    output reg        ydir,
    output            timer_done,
    output            obstacle,
-	output reg [7:0]	xpos,
-	output reg [6:0]	ypos,
-	output     [2:0]	color
+	output     [7:0]	x,
+	output     [6:0]	y,
+	output     [2:0]	plot_color,
+   input      [2:0]  image_color,
+   input             plot
    );
    
 /***************************************************************************
@@ -26,18 +29,13 @@ module datapath (
  ***************************************************************************/
    parameter TIMER_LIMIT = 26'd1_000_000;
 //   parameter TIMER_LIMIT = 26'd2;
-   parameter UP                = 2'd0;
-   parameter DOWN              = 2'd1;
-   parameter LEFT              = 2'd2;
-   parameter RIGHT             = 2'd3;
  
 /***************************************************************************
  *                 Internal Wire and Register Declarations                 *
  ***************************************************************************/
    reg   [25:0]   timer;
-   wire	[7:0]		xobs;       // x-coordinate to obstacle memory
-	wire	[6:0]		yobs;       // y-coordinate to obstacle memory
-   wire  [2:0]    dout_obs;   // output of obstacle memory
+   reg   [7:0]    xpos;
+   reg   [6:0]    ypos;
 
  
 /***************************************************************************
@@ -87,40 +85,21 @@ module datapath (
  *                            Combinational Logic                          *
  ***************************************************************************/
    // obstacle memory coordinate addresses
-   assign xobs =
-      s_obs_xy == 0 ? xpos :
-      s_obs_xy == 1 ? xpos :
-      s_obs_xy == 2 ? xpos - 1 :
+   assign x =
+      s_x == 0 ? xpos :
+      s_x == 1 ? xpos - 1 :
       xpos + 1;
       
-   assign yobs =
-      s_obs_xy == 0 ? ypos - 1 :
-      s_obs_xy == 1 ? ypos + 1 :
-      ypos;
+   assign y =
+      s_y == 0 ? ypos :
+      s_y == 1 ? ypos - 1 :
+      ypos + 1;
  
    // pixel color to VGA adapter
-   assign color      = s_color ? 3'b010 : 3'b000;
+   assign plot_color = s_image_color ? 3'b010 : 3'b000;
    
    // flags
-   assign timer_done = timer == TIMER_LIMIT;
-   
-   assign obstacle   = dout_obs != 3'b000;
-   
- 
- /**************************************************************************
- *                              Internal Modules                           *
- ***************************************************************************/
-   image_ram obstacle_mem (
-		.clk					(clk),
-		.x_read				(xobs),
-		.y_read				(yobs),
-		.color_out			(dout_obs),
-		.x_write				(8'd0),
-		.y_write				(7'd0),
-		.color_in			(3'd0),
-		.wren					(1'b0)
-	);
-	defparam obstacle_mem.BACKGROUND_IMAGE = "obstacle_course.mif";
-//	defparam obstacle_mem.BACKGROUND_IMAGE = "tiny.mif";
-   
+   assign timer_done = timer == TIMER_LIMIT;   
+   assign obstacle   = image_color != 3'b000;
+    
 endmodule

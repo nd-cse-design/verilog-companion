@@ -11,19 +11,15 @@ module controller (
    output reg           s_ydir,
    output reg           en_timer,
    output reg           s_timer,
-   output reg           s_color,
-   output reg    [1:0]  s_obs_xy,
+   output reg           s_image_color,
+   output reg    [1:0]  s_x,
+   output reg    [1:0]  s_y,
    output reg           plot,
    input                xdir,
    input                ydir,
    input                timer_done,
    input                obstacle
 	);
-   
-   parameter UP                = 2'd0;
-   parameter DOWN              = 2'd1;
-   parameter LEFT              = 2'd2;
-   parameter RIGHT             = 2'd3;
    
    parameter INIT              = 4'd0;
    parameter WAIT_TIMER        = 4'd1;
@@ -42,7 +38,7 @@ module controller (
    parameter INCREMENT_YPOS    = 4'd14;
    parameter DRAW              = 4'd15;
    
-   reg [3:0] state, next_state;
+   reg [3:0] state = 0, next_state;
    
    always @(posedge clk)
       if (reset)
@@ -61,8 +57,9 @@ module controller (
       s_ydir   = 0;  
       en_timer = 0;  
       s_timer  = 0; 
-      s_color  = 0;
-      s_obs_xy = 0;
+      s_image_color  = 0;
+      s_x      = 0;
+      s_y      = 0;
       plot     = 0;
       next_state = INIT;
       case (state)
@@ -75,24 +72,24 @@ module controller (
             next_state = WAIT_TIMER;
          end
          WAIT_TIMER        : begin
-            s_color = 1;
+            s_image_color = 1;
             plot = 1;
             s_timer = 1; en_timer = 1;
             if (timer_done)   next_state = ERASE;
             else              next_state = WAIT_TIMER;
          end
          ERASE             : begin
-            plot = 1;    s_color = 0;
+            plot = 1;    s_image_color = 0;
             s_timer = 0; en_timer = 1;
             if (xdir)         next_state = LOOK_RIGHT;
             else              next_state = LOOK_LEFT;
          end
          LOOK_LEFT         : begin
-            s_obs_xy = LEFT;
+            s_x = 1;  s_y = 0;
             next_state = TEST_X_OBSTACLE;
          end
          LOOK_RIGHT        : begin
-            s_obs_xy = RIGHT;
+            s_x = 2;  s_y = 0;
             next_state = TEST_X_OBSTACLE;
          end
          TEST_X_OBSTACLE   : begin
@@ -101,16 +98,16 @@ module controller (
             else              next_state = LOOK_UP;
          end
          CHANGE_XDIR       : begin
-            s_xdir = 1; en_xdir = 1;
+            s_xdir = 1;  en_xdir = 1;
             if (ydir)         next_state = LOOK_DOWN;
             else              next_state = LOOK_UP;
          end
          LOOK_UP           : begin
-            s_obs_xy = UP;
+            s_x = 0;  s_y = 1;
             next_state = TEST_Y_OBSTACLE;
          end
          LOOK_DOWN         : begin
-            s_obs_xy = DOWN;
+            s_x = 0;  s_y = 2;
             next_state = TEST_Y_OBSTACLE;
          end
          TEST_Y_OBSTACLE   : begin
@@ -142,12 +139,11 @@ module controller (
             next_state = DRAW;
          end
          DRAW              : begin
-            s_color = 1; plot = 1;
+            s_image_color = 1; plot = 1;
             next_state = WAIT_TIMER;
          end
          default           :;
       endcase
    end
-
    
 endmodule

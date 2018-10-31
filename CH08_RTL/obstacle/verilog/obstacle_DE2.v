@@ -11,41 +11,53 @@ module obstacle_DE2 (
 	output [9:0]	VGA_B	   				//	VGA Blue[9:0]
 	);
 	
-	wire [2:0] 	color;
-	wire [7:0] 	x;
-	wire [6:0] 	y;
+	wire [2:0] 	plot_color;
+	wire [7:0] 	x_proc;
+	wire [6:0] 	y_proc;
+   wire [7:0] 	x_vga;
+	wire [6:0] 	y_vga;
 	wire		  	plot;
+   wire [2:0]  image_color;
+   wire [2:0]  vga_color;
 	
-	processor (
-		.clk		(CLOCK_50),
-		.reset	(~KEY[0]),
-		.xpos		(x),
-		.ypos		(y),
-		.color	(color),
-		.plot		(plot)
+	processor processor (
+		.clk		      (CLOCK_50),
+		.reset	      (~KEY[0]),
+		.x		         (x_proc),
+		.y		         (y_proc),
+		.plot_color	   (plot_color),
+		.plot		      (plot),
+      .image_color   (image_color)
 	);
-	
-	vga_adapter VGA(
-		.resetn(KEY[0]),
-		.clock(CLOCK_50),
-		.colour(color),
-		.x(x),
-		.y(y),
-		.plot(plot),
-		/* Signals for the DAC to drive the monitor. */
-		.VGA_R(VGA_R),
-		.VGA_G(VGA_G),
-		.VGA_B(VGA_B),
-		.VGA_HS(VGA_HS),
-		.VGA_VS(VGA_VS),
-		.VGA_BLANK(VGA_BLANK),
-		.VGA_SYNC(VGA_SYNC),
-		.VGA_CLK(VGA_CLK)
-	);
-	defparam VGA.RESOLUTION = "160x120";
-	defparam VGA.MONOCHROME = "FALSE";
-	defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
-	defparam VGA.BACKGROUND_IMAGE = "obstacle_course.mif";
-//	defparam VGA.BACKGROUND_IMAGE = "tiny.mif";
+   
+   image_ram image_ram (
+      .wren          (plot),  
+      .clk_proc      (CLOCK_50),   
+      .clk_vga       (VGA_CLK),    			
+      .x_proc        (x_proc),
+      .y_proc        (y_proc),
+      .x_vga         (x_vga),
+      .y_vga         (y_vga),
+      .din           (plot_color),   
+      .dout_proc     (image_color),   
+      .dout_vga      (vga_color)
+   );
+   defparam image_ram.IMAGE_FILE = "obstacle_course.mem";
+   
+   vga_xy_controller vga_xy_controller (
+      .CLOCK_50      (CLOCK_50),
+      .resetn        (KEY[0]),
+      .color         (vga_color),
+      .x             (x_vga),
+      .y             (y_vga),
+      .VGA_R         (VGA_R),
+      .VGA_G         (VGA_G),
+      .VGA_B         (VGA_B),
+      .VGA_HS        (VGA_HS),
+      .VGA_VS        (VGA_VS),
+      .VGA_BLANK     (VGA_BLANK),
+      .VGA_SYNC      (VGA_SYNC),
+      .VGA_CLK       (VGA_CLK)				
+   );
 
 endmodule

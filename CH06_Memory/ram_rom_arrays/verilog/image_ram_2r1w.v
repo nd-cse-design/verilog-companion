@@ -1,4 +1,4 @@
-module image_ram (
+module image_ram_2r1w (
    input                wren,  
    input                clk_proc,   
    input                clk_vga,    			
@@ -11,7 +11,7 @@ module image_ram (
    output   reg   [2:0] dout_vga
    );
    
-   parameter IMAGE_FILE = "obstacle_course.mem";
+   parameter IMAGE_FILE = "blank.mem";
    
    wire [14:0] addr_proc = 160*y_proc + x_proc;
    wire [14:0] addr_vga  = 160*y_vga + x_vga;
