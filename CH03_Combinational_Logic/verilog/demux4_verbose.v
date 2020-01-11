@@ -7,7 +7,7 @@ module demux4_verbose (
    output reg  y3
    );
    
-   always @(d, s) begin
+   always @(*) begin
       case (s)
          0: begin y0 = d;  y1 = 0;  y2 = 0;  y3 = 0; end
          1: begin y0 = 0;  y1 = d;  y2 = 0;  y3 = 0; end

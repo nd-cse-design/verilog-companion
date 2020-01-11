@@ -47,6 +47,7 @@ module controller (
    parameter BR_NOT  = 5'd26;
    
    reg [4:0] state, next_state;
+   initial state = IFETCH;
    
    always @(posedge clk)
       if (reset)

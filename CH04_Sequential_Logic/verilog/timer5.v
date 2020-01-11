@@ -3,7 +3,7 @@ module timer5 (
    input rst,
    output t);
    
-   reg [2:0] count;
+   reg [2:0] count = 0;
    
    assign t = (count == 3'd5);
    

@@ -7,7 +7,7 @@ module and_inv_delay_tb ( );
    
    assign #2 n = a & b;
    
-   always @(n)
+   always @(*)
       #1 y = ~n;
       
    initial begin

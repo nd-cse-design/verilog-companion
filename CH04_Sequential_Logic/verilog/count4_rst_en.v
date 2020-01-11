@@ -4,6 +4,8 @@ module count4_rst_en (
    input en,
    output reg [3:0] q);
    
+   initial q = 0;
+   
    always @(posedge clk)
       if (rst)
          q <= 0;

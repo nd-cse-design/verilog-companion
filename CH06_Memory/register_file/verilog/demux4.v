@@ -4,7 +4,7 @@ module demux4 (
 	output reg [0:3] y
 	);
 	
-	always @(s, y) begin
+	always @(*) begin
 		y = 4'b0000;
 		if (en) begin
 			case (s)

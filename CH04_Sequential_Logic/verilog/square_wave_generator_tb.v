@@ -1,6 +1,6 @@
 module square_wave_generator_tb();
    reg clk;
-   wire t;
+   wire q;
    
    square_wave_generator uut (clk, q);
    

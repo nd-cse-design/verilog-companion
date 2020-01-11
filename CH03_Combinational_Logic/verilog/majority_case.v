@@ -2,7 +2,7 @@ module majority_case (
 	input a, b, c,
 	output reg f);
 	
-	always @(a, b, c)
+	always @(*)
 		case({a, b, c})
 			3'b000: f = 0;
 			3'b001: f = 0;

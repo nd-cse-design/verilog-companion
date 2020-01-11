@@ -20,9 +20,9 @@ module controller (
    
    always @(posedge clk)
       if (reset)
-         state = INIT;
+         state <= INIT;
       else
-         state = next_state;
+         state <= next_state;
    
    always @(*) begin
       en_addr = 0;

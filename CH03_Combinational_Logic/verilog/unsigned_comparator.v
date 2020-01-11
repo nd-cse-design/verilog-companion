@@ -3,7 +3,7 @@ module unsigned_comparator (
 	output reg gt, lt, eq
 	); 
 
-	always @(x, y)
+	always @(*)
 		if (x < y) begin
 			gt = 0;  lt = 1;  eq = 0;
 		end

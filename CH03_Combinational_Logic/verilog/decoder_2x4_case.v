@@ -3,7 +3,7 @@ module decoder_2x4_case (
 	output reg [0:3] f  // bits in ascending order (for example)
 	);
 		
-	always @(s)
+	always @(*)
 		case (s)
 			0: f = 4'b1000; 
 			1: f = 4'b0100;

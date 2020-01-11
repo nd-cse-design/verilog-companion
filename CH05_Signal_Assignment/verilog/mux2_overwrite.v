@@ -4,7 +4,7 @@ module mux2_overwrite (
    input       s,
    output reg  f);
    
-   always @(d0, d1, s) begin
+   always @(*) begin
       f = d0;
       if (s)
          f = d1;

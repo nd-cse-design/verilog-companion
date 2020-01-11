@@ -3,7 +3,7 @@ module mux_2x1 (
 	output reg f
 	);
 	
-	always @(a, b, s)
+	always @(*)
 		if (s)
 			f = b;
 		else

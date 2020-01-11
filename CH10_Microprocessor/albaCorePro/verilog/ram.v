@@ -5,36 +5,32 @@ module ram (
    input we,
    output reg [15:0] dout
    );
-     
+        
    reg [15:0] M [0:65535];
-	
-	initial begin
-		M[0]	= 16'h7720;
-		M[1]	= 16'h8107;
-		M[2]	= 16'h8217;
-		M[3]	= 16'hD006;
-		M[4]	= 16'h9207;
-		M[5]	= 16'hF000;
-		M[6]	= 16'h7601;
-		M[7]	= 16'h7000;
-		M[8]	= 16'h7508;
-		M[9]	= 16'h7301;
-		M[10]	= 16'hB085;
-		M[11]	= 16'h2432;
-		M[12]	= 16'hB024;
-		M[13]	= 16'h0001;
-		M[14]	= 16'h5111;
-		M[15]	= 16'h5331;
-		M[16]	= 16'h1556;
-		M[17]	= 16'hAF90;
-		M[18]	= 16'hE0F0;
-		
-		M[32]	= 16'h3;
-		M[33]	= 16'h5;
-		M[34]	= 16'h0;
-	end
-
    
+   always @(posedge clk)
+      if (we)
+         M[addr] <= din;
+         
+   always @(posedge clk)
+      dout <= M[addr];
+
+   initial begin
+      M[0]   = 16'h7540;
+      M[1]   = 16'h8105;
+      M[2]   = 16'hD005;
+      M[3]   = 16'h9115;
+      M[4]   = 16'hF000;
+      M[5]   = 16'hC021;
+      M[6]   = 16'hA030;
+      M[7]   = 16'h7000;
+      M[8]   = 16'h1101;
+      M[9]   = 16'hE0F0;
+      
+      M[64]  = 16'hFFFE;
+      M[65]  = 16'h0000;
+   end
+      
    /**
    initial begin
    // Array Manipulation
@@ -158,14 +154,36 @@ module ram (
       M[20]  = 16'hE0F0;
    end
    **/
-
    
-   always @(posedge clk)
-      if (we)
-         M[addr] <= din;
-         
-   always @(posedge clk)
-      dout <= M[addr];
+   /**
+   // shift and add multiply with call
+	initial begin
+		M[0]	= 16'h7720;
+		M[1]	= 16'h8107;
+		M[2]	= 16'h8217;
+		M[3]	= 16'hD006;
+		M[4]	= 16'h9207;
+		M[5]	= 16'hF000;
+		M[6]	= 16'h7601;
+		M[7]	= 16'h7000;
+		M[8]	= 16'h7508;
+		M[9]	= 16'h7301;
+		M[10]	= 16'hB085;
+		M[11]	= 16'h2432;
+		M[12]	= 16'hB024;
+		M[13]	= 16'h0001;
+		M[14]	= 16'h5111;
+		M[15]	= 16'h5331;
+		M[16]	= 16'h1556;
+		M[17]	= 16'hAF90;
+		M[18]	= 16'hE0F0;
+		
+		M[32]	= 16'h3;
+		M[33]	= 16'h5;
+		M[34]	= 16'h0;
+	end
+   **/
+
       
 endmodule
 

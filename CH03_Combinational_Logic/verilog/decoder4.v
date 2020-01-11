@@ -6,7 +6,7 @@ module decoder4 (
 	output reg y3
 	);
 		
-	always @(s)
+	always @(*)
 		case (s)
 			0: begin y0 = 1;  y1 = 0;  y2 = 0;  y3 = 0; end
 			1: begin y0 = 0;  y1 = 1;  y2 = 0;  y3 = 0; end

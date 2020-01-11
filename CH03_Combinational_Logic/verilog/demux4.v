@@ -7,7 +7,7 @@ module demux4 (
    output reg  y3
    );
    
-   always @(d, s) begin
+   always @(*) begin
       y0 = 0;  y1 = 0;  y2 = 0;  y3 = 0;
       case (s)
          0: y0 = d;

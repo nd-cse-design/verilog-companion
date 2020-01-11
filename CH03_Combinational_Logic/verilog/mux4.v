@@ -3,7 +3,7 @@ module mux4 (
 	input [1:0] s,
 	output reg f);
 		
-	always @(d0, d1, d2, d3, s)
+	always @(*)
 		case (s)
 			0: f = d0;
 			1: f = d1;

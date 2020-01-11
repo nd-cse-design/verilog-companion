@@ -7,7 +7,7 @@ module bad_demux4 (
    output reg  y3
    );
    
-   always @(d, s) begin
+   always @(*) begin
       case (s)
          0: y0 = d;
          1: y1 = d;
