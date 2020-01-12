@@ -1,4 +1,4 @@
-module reg16(
+module reg16 (
 	input 					clk,
 	input						en,
 	input 		[15:0]	d,

@@ -4,12 +4,12 @@ module datapath (
    input          en_inst,
    input          en_a,
    input          en_b,
-   input  [2:0]   alu_op,
+   input  [3:0]   alu_op,
    input          en_f,
    input          en_mdr,
    input          s_regfile_din,
    input          we_regfile,
-   input          s_next_pc,
+   input          s_regfile_rw,
    input          en_pc,
    output [3:0]   opcode,
    output         zero,
@@ -20,13 +20,12 @@ module datapath (
    );
    
    wire [15:0] inst;
+   wire [11:0] inst12         = inst[11:0];
    assign      opcode         = inst[15:12];
    wire [3:0]  rw             = inst[11:8];
    wire [3:0]  ra             = inst[7:4];
    wire [3:0]  rb             = inst[3:0];
-   wire [7:0]  imm            = inst[7:0];
-   wire [7:0]  disp           = inst[11:4];
-   wire [3:0]  shamt          = inst[3:0];
+   wire [3:0]  regfile_rw;
    wire [15:0] regfile_din;
    wire [15:0] regfile_a;
    wire [15:0] a;
@@ -34,18 +33,19 @@ module datapath (
    wire [15:0] b;
    wire [15:0] next_pc;
    wire [15:0] pc;
-   wire [15:0] alu_f;
+   wire [15:0] alu_out;
    wire [15:0] f;
    wire [15:0] mdr;
    
-   assign regfile_din   = s_regfile_din ? mdr : f;
-   assign addr          = s_addr ? b : pc;
    assign dout          = a;
+   assign regfile_rw    = s_regfile_rw ? 4'd15 : rw;
+   assign regfile_din   = s_regfile_din ? mdr : f;
+   assign addr          = s_addr ? f : pc;
    
    regfile regfile (
       .clk     (clk),
       .din     (regfile_din),
-      .waddr   (rw),
+      .waddr   (regfile_rw),
       .raddra  (ra),   
       .raddrb  (rb),
       .we      (we_regfile),
@@ -56,7 +56,7 @@ module datapath (
    reg16 pc_reg (
       .clk     (clk),
       .en      (en_pc),
-      .d       (next_pc),
+      .d       (alu_out),
       .q       (pc)
    );
    
@@ -84,7 +84,7 @@ module datapath (
    reg16 f_reg (
       .clk     (clk),
       .en      (en_f),
-      .d       (alu_f),
+      .d       (alu_out),
       .q       (f)
    );
    
@@ -95,24 +95,13 @@ module datapath (
       .q       (mdr)
    );
    
-   pc_update pc_update (
-      .pc      (pc),
-      .disp    (disp),
-      .s       (s_next_pc),
-      .next_pc (next_pc)
-   );
-   
    alu alu (
       .a       (a),
       .b       (b),
-      .imm     (imm),
-      .shamt   (shamt),
       .op      (alu_op),
-      .f       (alu_f)
-   );
-   
-   flags flags (
-      .b       (b),
+      .inst12  (inst12),
+      .pc      (pc),
+      .out     (alu_out),
       .neg     (neg),
       .zero    (zero)
    );

@@ -1,8 +1,8 @@
-module reg16(
+module reg8 (
 	input 					clk,
 	input						en,
-	input 		[15:0]	d,
-	output reg	[15:0]	q
+	input 		[7:0]	   d,
+	output reg	[7:0]	   q
    );
    
    initial q = 0;

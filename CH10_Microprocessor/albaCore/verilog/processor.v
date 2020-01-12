@@ -11,12 +11,12 @@ module processor (
    wire         en_inst;
    wire         en_a;
    wire         en_b;
-   wire [2:0]   alu_op;
+   wire [3:0]   alu_op;
    wire         en_f;
    wire         en_mdr;
    wire         s_regfile_din;
    wire         we_regfile;
-   wire         s_next_pc;
+   wire         s_regfile_rw;
    wire         en_pc;
    wire [3:0]   opcode;
    wire         zero;
@@ -34,7 +34,7 @@ module processor (
       .en_mdr        (en_mdr       ),
       .s_regfile_din (s_regfile_din),
       .we_regfile    (we_regfile   ),
-      .s_next_pc     (s_next_pc    ),
+      .s_regfile_rw  (s_regfile_rw ),
       .en_pc         (en_pc        ),
       .opcode        (opcode       ),
       .zero          (zero         ),
@@ -53,7 +53,7 @@ module processor (
       .en_mdr        (en_mdr       ),
       .s_regfile_din (s_regfile_din),
       .we_regfile    (we_regfile   ),
-      .s_next_pc     (s_next_pc    ),
+      .s_regfile_rw  (s_regfile_rw ),
       .en_pc         (en_pc        ),
       .opcode        (opcode       ),
       .zero          (zero         ),
