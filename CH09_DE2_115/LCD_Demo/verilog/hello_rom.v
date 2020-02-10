@@ -3,7 +3,7 @@ module hello_rom (
    output reg  [7:0] dout
    );
    
-   always @(addr)
+   always @(*)
       case (addr)
          // Line 1 starts at 0
          0:  dout = "H";

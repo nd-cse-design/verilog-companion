@@ -1,10 +1,10 @@
 module text_and_data (
    input       [7:0] n,
-   input       [7:0] lcd_index,
+   input       [4:0] lcd_index,
    output reg  [7:0] lcd_char
    );
    
-   always @(n, lcd_index)
+   always @(*)
       case (lcd_index)
          0:  lcd_char = "H";
          1:  lcd_char = "E";

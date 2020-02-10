@@ -5,7 +5,7 @@ module character_and_location (
 	output reg	[7:0]	dout
 	);
 	
-   always @(lcd_index, character, location)
+   always @(*)
       if (location == lcd_index)
          dout = character;
       else
