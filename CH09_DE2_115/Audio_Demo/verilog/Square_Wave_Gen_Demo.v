@@ -1,6 +1,5 @@
 module Square_Wave_Gen_Demo (
 	input       CLOCK_50,
-	input [0:0] KEY,
 	input       AUD_ADCDAT,
 	inout       AUD_BCLK,
 	inout       AUD_ADCLRCK,
@@ -16,14 +15,13 @@ module Square_Wave_Gen_Demo (
 
    square_wave_osc osc (
       .CLOCK_50						(CLOCK_50),
-      .reset						   (~KEY[0]),
       .out                       (osc_out)
    );
 
    Audio_Controller Audio_Controller (
       // Inputs
       .CLOCK_50						(CLOCK_50),
-      .reset						   (~KEY[0]),
+      .reset						   (1'b0),
       .left_channel_audio_out		(osc_out),
       .right_channel_audio_out	(osc_out),
       .write_audio_out			   (audio_out_allowed),
@@ -42,7 +40,7 @@ module Square_Wave_Gen_Demo (
       .I2C_SCLK					(I2C_SCLK),
       .I2C_SDAT					(I2C_SDAT),
       .CLOCK_50					(CLOCK_50),
-      .reset						(~KEY[0])
+      .reset						(1'b0)
    );
 
 endmodule
