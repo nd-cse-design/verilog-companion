@@ -1,7 +1,7 @@
 module alu (
    input      [15:0] a,
    input      [15:0] b,
-   input      [3:0]  op,
+   input      [3:0]  alu_op,
    input      [11:0] inst12,
    input      [15:0] pc,
    output reg [15:0] out,
@@ -18,7 +18,7 @@ module alu (
    assign zero             = b == 0;
    
    always @(*)
-      case (op)
+      case (alu_op)
          0:  out = a + b;
          1:  out = a - b;
          2:  out = a & b;

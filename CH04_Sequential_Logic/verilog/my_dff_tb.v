@@ -4,7 +4,11 @@ module my_dff_tb ();
 	reg clk;
 	wire q;
 	
-	my_dff uut (d, clk, q);
+	my_dff uut (
+    .d   (d), 
+    .clk (clk), 
+    .q   (q)
+   );
 	
 	always
 		#5 clk = ~clk;

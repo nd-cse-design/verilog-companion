@@ -98,7 +98,7 @@ module datapath (
    alu alu (
       .a       (a),
       .b       (b),
-      .op      (alu_op),
+      .alu_op  (alu_op),
       .inst12  (inst12),
       .pc      (pc),
       .out     (alu_out),

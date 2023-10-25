@@ -1,12 +1,11 @@
-module system (
+module system_breakout (
    input          clk,
-   input          reset
+   input          reset,
+   output  [15:0] proc_din,
+   output  [15:0] addr,
+   output  [15:0] proc_dout,
+   output         we
    );
-	
-	wire  [15:0] proc_din;
-   wire  [15:0] addr;
-   wire  [15:0] proc_dout;
-   wire         we;
       
    processor processor (
       .clk     (clk      ),
